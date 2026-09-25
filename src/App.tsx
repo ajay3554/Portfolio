@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { downloadResumePdf } from './utils/generateResumePdf';
-import salesDashboardSvg from './assets/images/sales-dashboard.svg';
+import salesDashboardImage from './assets/images/sales-dashboard.png';
 
 // Project interfaces
 interface Project {
@@ -35,7 +35,7 @@ const PROJECTS_DATA: Project[] = [
     badge: 'Power BI Dashboard',
     badgeIcon: 'fa-chart-line',
     badgeColor: 'border-sky-400/30 text-sky-300',
-    image: salesDashboardSvg,
+    image: salesDashboardImage,
     tags: ['Power BI', 'DAX', 'Power Query', 'Data Modeling', 'Excel/CSV'],
     description: 'Built an interactive Power BI dashboard to track sales, profit, orders, quantity, cost and profit margin across 2024–2025. Performed data transformation, modeling and created DAX measures with slicers and drill-through analysis.',
     hasGithub: false,
