@@ -705,14 +705,14 @@ export default function App() {
       </header>
 
       {/* MAIN CONTAINER */}
-      <main className="space-y-28">
+      <main className="space-y-20 overflow-x-hidden">
         {/* HERO SECTION */}
-        <section id="home" className="max-w-7xl mx-auto px-6 pt-14 md:pt-20 pb-8 relative">
+        <section id="home" className="w-full max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-6 relative">
           <div className="absolute left-0 top-6 w-36 h-36 dot-pattern opacity-40 pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-5">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B192E]/80 border border-sky-400/30 text-xs font-semibold tracking-wide shadow-[0_0_15px_rgba(56,189,248,0.2)] backdrop-blur-md">
                 <span className="text-sky-400 text-sm animate-pulse">✦</span>
@@ -824,14 +824,14 @@ export default function App() {
             </div>
 
             {/* Hero Right Avatar with Glowing Effects & Surrounding Badges */}
-            <div className="lg:col-span-5 relative flex justify-center items-center py-10">
+            <div className="lg:col-span-5 relative flex justify-center items-center py-6 lg:py-8">
               <div
                 className="absolute w-80 h-80 md:w-96 md:h-96 rounded-full bg-gradient-to-tr from-cyan-500/35 via-sky-500/25 to-blue-600/30 blur-3xl pointer-events-none anim-pulse-glow"
                 style={{ filter: 'blur(48px)' }}
               />
-              <div className="absolute w-72 h-72 md:w-84 md:h-84 rounded-full border border-sky-400/30 pointer-events-none anim-radar" />
+              <div className="absolute w-64 h-64 sm:w-72 sm:h-72 md:w-[21rem] md:h-[21rem] rounded-full border border-sky-400/30 pointer-events-none anim-radar" />
               <div
-                className="absolute w-76 h-76 md:w-88 md:h-88 rounded-full p-[3px] anim-rotate-glow opacity-80 pointer-events-none z-0"
+                className="absolute w-[17rem] h-[17rem] sm:w-[19rem] sm:h-[19rem] md:w-[22rem] md:h-[22rem] rounded-full p-[3px] anim-rotate-glow opacity-80 pointer-events-none z-0"
                 style={{
                   background:
                     'conic-gradient(rgb(56, 189, 248), rgb(14, 165, 233), rgb(37, 99, 235), rgb(6, 182, 212), rgb(56, 189, 248))',
@@ -840,7 +840,7 @@ export default function App() {
               />
 
               {/* Avatar Frame */}
-              <div className="w-72 h-72 md:w-84 md:h-84 rounded-full p-[3px] bg-gradient-to-tr from-sky-400 via-cyan-300 to-blue-600 relative z-10 backdrop-blur-xl group transition-transform duration-500 hover:scale-105 shadow-[0_0_40px_rgba(56,189,248,0.4)]">
+              <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-[21rem] md:h-[21rem] rounded-full p-[3px] bg-gradient-to-tr from-sky-400 via-cyan-300 to-blue-600 relative z-10 backdrop-blur-xl group transition-transform duration-500 hover:scale-105 shadow-[0_0_40px_rgba(56,189,248,0.4)]">
                 <div className="w-full h-full rounded-full bg-gradient-to-b from-[#0F223D] via-[#08162B] to-[#020612] p-2 flex items-center justify-center relative overflow-hidden">
                   <img
                     alt="Ajayraj B - Data Analyst"

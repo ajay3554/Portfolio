@@ -996,3 +996,62 @@ main section[id] {
   .experience-highlight-grid { grid-template-columns: 1fr; }
   .experience-current-badge { display: none; }
 }
+
+
+/* Portfolio layout polish - responsive viewport safety */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Keep the hero content centered on wide screens without leaving an oversized right gutter. */
+@media (min-width: 1024px) {
+  #home {
+    max-width: 1152px;
+  }
+}
+
+/* Avoid accidental horizontal overflow from decorative absolute elements on small screens. */
+@media (max-width: 767px) {
+  header > div {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #home {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #home h1 {
+    font-size: clamp(2.7rem, 12vw, 4rem);
+    line-height: 1.05;
+  }
+
+  .hero-role-typewriter {
+    max-width: 100%;
+  }
+}
+
+/* Medium mobile/tablet widths: keep the header from squeezing the brand and CTA. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #home {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
