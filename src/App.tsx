@@ -156,13 +156,24 @@ const PROJECTS_DATA: Project[] = [
 ];
 
 export default function App() {
+  // Circular Fill Portfolio Intro Preloader
+  const [portfolioPreloading, setPortfolioPreloading] = useState(true);
+  const [portfolioProgress, setPortfolioProgress] = useState(0);
+  const [portfolioPreloaderExiting, setPortfolioPreloaderExiting] = useState(false);
+
   // Navigation active tab
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Carousel state
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [certificationCarouselIndex, setCertificationCarouselIndex] = useState(0);
+  const certificationTouchStart = useRef<number | null>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [projectsRevealVisible, setProjectsRevealVisible] = useState(false);
+
+  // Hero role typewriter reveal
+  const [typedRoleText, setTypedRoleText] = useState('');
 
   // Interactive Modals
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -195,7 +206,204 @@ export default function App() {
 
   // Refs for drag and stage
   const stageRef = useRef<HTMLDivElement>(null);
+  const roleTextRef = useRef<HTMLSpanElement>(null);
   const dragStartX = useRef<number | null>(null);
+
+  // Portfolio intro animation - runs once on each fresh app mount.
+  useEffect(() => {
+    let frameId = 0;
+    let startTime = 0;
+    let exitTimer: ReturnType<typeof setTimeout> | null = null;
+    const duration = 2800;
+
+    document.body.style.overflow = 'hidden';
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      setPortfolioProgress(100);
+      exitTimer = setTimeout(() => {
+        setPortfolioPreloaderExiting(true);
+        exitTimer = setTimeout(() => {
+          setPortfolioPreloading(false);
+          document.body.style.overflow = '';
+        }, 250);
+      }, 150);
+      return () => {
+        if (exitTimer) clearTimeout(exitTimer);
+        document.body.style.overflow = '';
+      };
+    }
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const rawProgress = Math.min(elapsed / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
+      const percent = Math.round(easedProgress * 100);
+      setPortfolioProgress(percent);
+
+      if (rawProgress < 1) {
+        frameId = requestAnimationFrame(animate);
+      } else {
+        exitTimer = setTimeout(() => {
+          setPortfolioPreloaderExiting(true);
+          exitTimer = setTimeout(() => {
+            setPortfolioPreloading(false);
+            document.body.style.overflow = '';
+          }, 650);
+        }, 250);
+      }
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      if (exitTimer) clearTimeout(exitTimer);
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  // 3D project reveal: trigger once when the Projects carousel enters the viewport.
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      setProjectsRevealVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setProjectsRevealVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
+
+  // Hero 'Data Analyst' typewriter: start AFTER the circular preloader has finished.
+  // The previous version could finish typing underneath the preloader, so the user only
+  // saw the final text. This version deliberately starts after the intro is gone.
+  useEffect(() => {
+    const target = roleTextRef.current;
+    if (!target || portfolioPreloading) return;
+
+    const fullText = 'Data Analyst';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      setTypedRoleText(fullText);
+      return;
+    }
+
+    let typingTimer: ReturnType<typeof setInterval> | null = null;
+    const revealTimer = setTimeout(() => {
+      let index = 0;
+      setTypedRoleText('');
+
+      typingTimer = setInterval(() => {
+        index += 1;
+        setTypedRoleText(fullText.slice(0, index));
+
+        if (index >= fullText.length && typingTimer) {
+          clearInterval(typingTimer);
+          typingTimer = null;
+        }
+      }, 125);
+    }, 450);
+
+    return () => {
+      clearTimeout(revealTimer);
+      if (typingTimer) clearInterval(typingTimer);
+    };
+  }, [portfolioPreloading]);
+
+  // Animate text as each section enters the viewport.
+  // This is a lightweight AOS-style implementation with no extra package.
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const textNodes = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        'main section h2, main section h3, main section h4, main section p, main section li'
+      )
+    );
+
+    if (prefersReducedMotion) {
+      textNodes.forEach((el) => el.classList.add('aos-text--visible'));
+      return;
+    }
+
+    textNodes.forEach((el, index) => {
+      el.classList.add('aos-text');
+      el.style.setProperty('--aos-delay', `${Math.min((index % 4) * 70, 210)}ms`);
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('aos-text--visible');
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    textNodes.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Premium certification reveal: heading + certification rows animate as the section enters view.
+  useEffect(() => {
+    const section = document.getElementById('certifications');
+    if (!section) return;
+
+    const items = Array.from(section.querySelectorAll<HTMLElement>('[data-cert-reveal]'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      items.forEach((el) => el.classList.add('certification-reveal--visible'));
+      return;
+    }
+
+    items.forEach((el, index) => {
+      el.style.setProperty('--cert-delay', `${Math.min(index * 90, 540)}ms`);
+    });
+
+    const reveal = () => {
+      items.forEach((el) => el.classList.add('certification-reveal--visible'));
+      observer.disconnect();
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) reveal();
+      },
+      { threshold: 0.05, rootMargin: '80px 0px -5% 0px' }
+    );
+
+    observer.observe(section);
+
+    // Fallback for direct #certifications navigation / fast scrolling.
+    const fallbackTimer = window.setTimeout(() => {
+      const rect = section.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.95 && rect.bottom > 80;
+      if (inView) reveal();
+    }, 250);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallbackTimer);
+    };
+  }, []);
 
   // Autoplay carousel
   useEffect(() => {
@@ -314,8 +522,64 @@ export default function App() {
     window.print();
   };
 
+  const preloaderRadius = 92;
+  const preloaderCircumference = 2 * Math.PI * preloaderRadius;
+  const preloaderOffset = preloaderCircumference * (1 - portfolioProgress / 100);
+
   return (
-    <div className="min-h-screen text-slate-300 relative selection:bg-orange-500 selection:text-white">
+    <>
+      {portfolioPreloading && (
+        <div
+          className={`portfolio-preloader ${portfolioPreloaderExiting ? 'portfolio-preloader--exit' : ''}`}
+          aria-label="Portfolio loading"
+          role="status"
+        >
+          <div className="portfolio-preloader__glow portfolio-preloader__glow--one" />
+          <div className="portfolio-preloader__glow portfolio-preloader__glow--two" />
+
+          <div className="portfolio-preloader__content">
+            <div className="portfolio-preloader__ring-wrap">
+              <svg className="portfolio-preloader__ring" viewBox="0 0 220 220" aria-hidden="true">
+                <defs>
+                  <linearGradient id="portfolioPreloaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#38bdf8" />
+                    <stop offset="50%" stopColor="#22d3ee" />
+                    <stop offset="100%" stopColor="#2563eb" />
+                  </linearGradient>
+                </defs>
+                <circle
+                  className="portfolio-preloader__track"
+                  cx="110"
+                  cy="110"
+                  r={preloaderRadius}
+                />
+                <circle
+                  className="portfolio-preloader__progress"
+                  cx="110"
+                  cy="110"
+                  r={preloaderRadius}
+                  stroke="url(#portfolioPreloaderGradient)"
+                  strokeDasharray={preloaderCircumference}
+                  strokeDashoffset={preloaderOffset}
+                />
+              </svg>
+
+              <div className="portfolio-preloader__center">
+                <div className="portfolio-preloader__name">AJAYRAJ <span>B</span></div>
+                <div className="portfolio-preloader__role">DATA ANALYST</div>
+                <div className="portfolio-preloader__percent">{portfolioProgress}%</div>
+              </div>
+            </div>
+
+            <div className="portfolio-preloader__loading-line">
+              <span>INITIALIZING PORTFOLIO</span>
+              <span className="portfolio-preloader__dots">...</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="min-h-screen text-slate-300 relative selection:bg-orange-500 selection:text-white">
       {/* Ambient Background Glows */}
       <div className="fixed top-0 right-0 w-[750px] h-[750px] hero-glow-cyan pointer-events-none -z-10 anim-orb-1 opacity-80" />
       <div className="fixed top-72 left-0 w-[650px] h-[650px] hero-glow-blue pointer-events-none -z-10 anim-orb-2 opacity-70" />
@@ -473,12 +737,16 @@ export default function App() {
                 </h1>
 
                 {/* Subtitle with blinking bar */}
-                <div className="flex items-center gap-2 pt-2 flex-wrap">
-                  <span className="text-xl md:text-2xl font-bold text-sky-400 tracking-normal drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]">
-                    Data Analyst
+                <div className="flex flex-col items-start gap-1 pt-2">
+                  <span
+                    ref={roleTextRef}
+                    className="hero-role-typewriter text-xl md:text-2xl font-bold text-sky-400 tracking-normal drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]"
+                    aria-label="Data Analyst"
+                  >
+                    {typedRoleText}
                   </span>
-                  <span className="w-[3px] h-6 bg-sky-400 rounded-sm cursor-blink shadow-[0_0_8px_rgba(56,189,248,0.9)]" />
-                  <span className="text-slate-600 font-light mx-1">|</span>
+                  <span className="hidden" />
+                  <span className="hidden">|</span>
                   <span className="text-base md:text-xl font-medium text-slate-300">
                     Turning Data into{' '}
                     <span className="text-white font-semibold underline decoration-sky-400/60 decoration-2 underline-offset-4">
@@ -940,52 +1208,235 @@ export default function App() {
               </div>
             </div>
 
-            {/* Certifications */}
-            <div id="certifications" className="lg:col-span-6 space-y-6">
-              <div className="flex items-center gap-3">
-                <span className="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center text-lg">
-                  <i className="fa-solid fa-award" />
-                </span>
-                <h2 className="text-2xl md:text-3xl font-black text-white">Certifications</h2>
-              </div>
-
-              <div className="glass-card-specular bg-[#0B192E]/60 backdrop-blur-md rounded-2xl p-6 border border-sky-500/20 border-t-sky-400/40 shadow-card-glass space-y-3.5">
-                {[
-                  {
-                    title: 'Microsoft Power BI Course:',
-                    desc: 'Data Visualization & Business Intelligence',
-                  },
-                  {
-                    title: 'Data Science Foundation',
-                    desc: '',
-                  },
-                  {
-                    title: 'Ship a Full Stack App',
-                    desc: 'with Cursor + Claude Integration',
-                  },
-                  {
-                    title: 'Build & Deploy AI Apps with Google AI Studio:',
-                    desc: 'Multilingual AI Speech App Development',
-                  },
-                  {
-                    title: 'AI Tools & Claude Workshop',
-                    desc: '',
-                  },
-                  {
-                    title: 'Claude AI in 90 Minutes',
-                    desc: 'Productivity Course: Build Your AI Work Assistant',
-                  },
-                ].map((cert, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-xs md:text-sm text-slate-300">
-                    <span className="w-2 h-2 rounded-full bg-sky-400 mt-2 shrink-0 shadow-[0_0_6px_#38bdf8]" />
-                    <span>
-                      <strong className="text-white">{cert.title}</strong> {cert.desc}
+            {/* Experience Highlights */}
+            <div className="lg:col-span-6 experience-highlights-wrap">
+              <div className="experience-highlights glass-card-specular">
+                <div className="flex items-center justify-between gap-3 mb-5">
+                  <div className="flex items-center gap-3">
+                    <span className="experience-highlights-icon">
+                      <i className="fa-solid fa-star" />
                     </span>
+                    <div>
+                      <h3 className="text-lg md:text-xl font-black text-white">Experience Highlights</h3>
+                      <p className="text-xs text-slate-400 mt-1">What I am building through this role</p>
+                    </div>
                   </div>
-                ))}
+                  <span className="experience-current-badge">Current Role</span>
+                </div>
+
+                <div className="experience-highlight-grid">
+                  <div className="experience-highlight-card experience-highlight-cyan">
+                    <span className="experience-highlight-card-icon"><i className="fa-solid fa-chart-column" /></span>
+                    <div>
+                      <h4>Data Analysis</h4>
+                      <p>Data cleaning · EDA · Reporting</p>
+                    </div>
+                  </div>
+
+                  <div className="experience-highlight-card experience-highlight-emerald">
+                    <span className="experience-highlight-card-icon"><i className="fa-solid fa-database" /></span>
+                    <div>
+                      <h4>Tools & Technologies</h4>
+                      <p>Python · SQL · Power BI · Excel</p>
+                    </div>
+                  </div>
+
+                  <div className="experience-highlight-card experience-highlight-violet">
+                    <span className="experience-highlight-card-icon"><i className="fa-solid fa-bullseye" /></span>
+                    <div>
+                      <h4>Professional Growth</h4>
+                      <p>Hands-on Projects · Real-world Data</p>
+                    </div>
+                  </div>
+
+                  <div className="experience-highlight-card experience-highlight-amber">
+                    <span className="experience-highlight-card-icon"><i className="fa-solid fa-bolt" /></span>
+                    <div>
+                      <h4>Domain Exposure</h4>
+                      <p>Business Data · Analytics · Insights</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="experience-skills-row">
+                  <div className="flex items-center gap-2 mb-3 text-xs font-bold text-slate-300">
+                    <i className="fa-solid fa-gear text-sky-400" />
+                    Key Skills Used
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {['Python', 'SQL', 'Power BI', 'Excel', 'Data Analysis', 'Data Visualization'].map((skill) => (
+                      <span key={skill} className="experience-skill-chip">{skill}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </section>
+
+        {/* CERTIFICATIONS */}
+        <section id="certifications" className="max-w-6xl mx-auto px-6">
+          <div className="space-y-6 certification-section">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center text-lg">
+                    <i className="fa-solid fa-award" />
+                  </span>
+                  <div>
+                    <h2 data-cert-reveal className="text-2xl md:text-3xl font-black text-white certification-reveal certification-heading-reveal">Certifications</h2>
+                    <p className="text-xs text-slate-400 mt-1">Courses & workshops completed through GUVI</p>
+                  </div>
+                </div>
+                <span className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/5 text-[10px] font-bold uppercase tracking-wider text-sky-300">
+                  <i className="fa-solid fa-building-columns" /> GUVI
+                </span>
+              </div>
+
+              <div
+                className="certification-carousel"
+                onTouchStart={(e) => { certificationTouchStart.current = e.touches[0]?.clientX ?? null; }}
+                onTouchEnd={(e) => {
+                  const start = certificationTouchStart.current;
+                  const end = e.changedTouches[0]?.clientX ?? start ?? 0;
+                  certificationTouchStart.current = null;
+                  if (start === null) return;
+                  const delta = end - start;
+                  if (Math.abs(delta) < 45) return;
+                  setCertificationCarouselIndex((current) => {
+                    if (delta < 0) return Math.min(current + 1, 5);
+                    return Math.max(current - 1, 0);
+                  });
+                }}
+              >
+                <button
+                  type="button"
+                  aria-label="Previous certification"
+                  className="certification-carousel-nav certification-carousel-nav--prev"
+                  onClick={() => setCertificationCarouselIndex((current) => Math.max(current - 1, 0))}
+                >
+                  <i className="fa-solid fa-chevron-left" />
+                </button>
+
+                <div className="certification-carousel-stage">
+                  <div
+                    className="certification-carousel-track"
+                    
+                  >
+                    {[
+                  {
+                    title: 'Microsoft Power BI Course',
+                    subtitle: 'Data Visualization & Business Intelligence',
+                    issuer: 'GUVI',
+                    badge: 'Power BI',
+                    icon: 'fa-solid fa-chart-column',
+                    tone: 'amber',
+                    tags: ['Power BI', 'DAX', 'Power Query'],
+                  },
+                  {
+                    title: 'Data Science Foundation',
+                    subtitle: 'Data Science fundamentals',
+                    issuer: 'GUVI',
+                    badge: 'Data Science',
+                    icon: 'fa-solid fa-database',
+                    tone: 'sky',
+                    tags: ['Python', 'Pandas', 'EDA'],
+                  },
+                  {
+                    title: 'Ship a Full Stack App',
+                    subtitle: 'Cursor + Claude Integration',
+                    issuer: 'GUVI',
+                    badge: 'Full Stack',
+                    icon: 'fa-solid fa-code',
+                    tone: 'violet',
+                    tags: ['React', 'AI Tools', 'Deployment'],
+                  },
+                  {
+                    title: 'Build & Deploy AI Apps',
+                    subtitle: 'Google AI Studio • Multilingual AI Speech App',
+                    issuer: 'GUVI',
+                    badge: 'AI / GenAI',
+                    icon: 'fa-solid fa-wand-magic-sparkles',
+                    tone: 'emerald',
+                    tags: ['Google AI', 'GenAI', 'Speech AI'],
+                  },
+                  {
+                    title: 'AI Tools & Claude Workshop',
+                    subtitle: 'Practical AI productivity workflows',
+                    issuer: 'GUVI',
+                    badge: 'AI Tools',
+                    icon: 'fa-solid fa-robot',
+                    tone: 'cyan',
+                    tags: ['Claude', 'Prompting', 'AI Tools'],
+                  },
+                  {
+                    title: 'Claude AI in 90 Minutes',
+                    subtitle: 'Build Your AI Work Assistant',
+                    issuer: 'GUVI',
+                    badge: 'Claude AI',
+                    icon: 'fa-solid fa-bolt',
+                    tone: 'indigo',
+                    tags: ['Claude', 'Productivity', 'AI'],
+                  },
+                    ].map((cert, idx) => (
+                  <article
+                    key={cert.title}
+                    data-cert-reveal
+                    style={{ '--cert-delay': `${idx * 90}ms`, '--cert-index': idx } as React.CSSProperties}
+                    className={`certification-card certification-reveal certification-item-reveal certification-card--${cert.tone} ${idx === certificationCarouselIndex ? 'certification-card--active' : ''} ${idx === certificationCarouselIndex ? 'certification-card--pos-center' : idx === certificationCarouselIndex - 1 ? 'certification-card--pos-prev' : idx === certificationCarouselIndex + 1 ? 'certification-card--pos-next' : idx < certificationCarouselIndex ? 'certification-card--pos-far-prev' : 'certification-card--pos-far-next'}`}
+                    onClick={() => setCertificationCarouselIndex(idx)}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="certification-card-icon">
+                        <i className={cert.icon} />
+                      </div>
+                      <span className="certification-badge">{cert.badge}</span>
+                    </div>
+
+                    <div className="mt-4">
+                      <h3 className="text-sm md:text-base font-black text-white leading-tight">{cert.title}</h3>
+                      <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">{cert.subtitle}</p>
+                    </div>
+
+                    <div className="mt-4 flex items-center gap-2.5 text-[11px] font-semibold text-slate-300">
+                      <span className="guvi-logo" aria-label="GUVI logo">G</span>
+                      <span>Completed through <strong className="text-white">{cert.issuer}</strong></span>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {cert.tags.map((tag) => (
+                        <span key={tag} className="certification-tag">{tag}</span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  aria-label="Next certification"
+                  className="certification-carousel-nav certification-carousel-nav--next"
+                  onClick={() => setCertificationCarouselIndex((current) => Math.min(current + 1, 5))}
+                >
+                  <i className="fa-solid fa-chevron-right" />
+                </button>
+
+                <div className="certification-carousel-dots" aria-label="Certification carousel position">
+                  {[0,1,2,3,4,5].map((dot) => (
+                    <button
+                      key={dot}
+                      type="button"
+                      aria-label={`Show certification ${dot + 1}`}
+                      className={`certification-carousel-dot ${dot === certificationCarouselIndex ? 'is-active' : ''}`}
+                      onClick={() => setCertificationCarouselIndex(dot)}
+                    />
+                  ))}
+                </div>
+                <div className="certification-swipe-hint">
+                  <i className="fa-solid fa-hand-pointer" /> Swipe / drag to explore
+                </div>
+              </div>
+            </div>
         </section>
 
         {/* ========================================================= */}
@@ -1049,7 +1500,7 @@ export default function App() {
                     }}
                     className={`carousel-3d-item ${stateClass}`}
                   >
-                    <div className="card-inner-shell bg-[#0B192E]/90 backdrop-blur-xl rounded-3xl border border-sky-500/25 border-t-sky-400/50 shadow-card-glass overflow-hidden flex flex-col justify-between transition-all duration-300 relative group">
+                    <div className={`card-inner-shell project-scroll-slide-fade ${projectsRevealVisible ? 'project-scroll-slide-fade--visible' : ''} bg-[#0B192E]/90 backdrop-blur-xl rounded-3xl border border-sky-500/25 border-t-sky-400/50 shadow-card-glass overflow-hidden flex flex-col justify-between transition-all duration-300 relative group`}>
                       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sky-400/70 to-transparent" />
 
                       <div>
@@ -1904,5 +2355,6 @@ export default function App() {
         </div>
       )}
     </div>
+    </>
   );
 }
