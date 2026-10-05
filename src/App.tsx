@@ -39,7 +39,7 @@ const PROJECTS_DATA: Project[] = [
     image: salesDashboardImage,
     tags: ['Power BI', 'DAX', 'Power Query', 'Data Modeling', 'Excel/CSV'],
     description: 'Built an interactive Power BI dashboard to track sales, profit, orders, quantity, cost and profit margin across 2024–2025. Performed data transformation, modeling and created DAX measures with slicers and drill-through analysis.',
-    hasGithub: false,
+    hasGithub: true,
     githubUrl: 'https://github.com/ajay3554/Ecommerce-Sales-Analytics',
     showViewButton: false,
     primaryActionText: 'VIEW',
