@@ -125,9 +125,8 @@ const PROJECTS_DATA: Project[] = [
     description: 'Built an interactive Power BI dashboard to analyze Zepto sales performance, including sales trends, category-wise sales, top products, city-wise sales, and order status. Used DAX, Power Query, data modeling, and interactive filters to create a clear and business-focused analytics dashboard.',
     hasGithub: true,
     githubUrl: 'https://github.com/ajay3554/Zepto-Sales-Business-Analytics-Dashboard',
-    showViewButton: true,
+    showViewButton: false,
     primaryActionText: 'VIEW',
-    externalUrl: 'https://github.com/ajay3554/Zepto-Sales-Business-Analytics-Dashboard',
     highlights: [
       'Analyzes ₹20,13,018 in total sales and ₹4,03,279 in total profit',
       'Tracks monthly sales trends, total orders, quantity, and profit margin',
