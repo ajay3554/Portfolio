@@ -41,9 +41,8 @@ const PROJECTS_DATA: Project[] = [
     description: 'Built an interactive Power BI dashboard to track sales, profit, orders, quantity, cost and profit margin across 2024–2025. Performed data transformation, modeling and created DAX measures with slicers and drill-through analysis.',
     hasGithub: false,
     githubUrl: 'https://github.com/ajay3554/Ecommerce-Sales-Analytics',
-    showViewButton: true,
+    showViewButton: false,
     primaryActionText: 'VIEW',
-    externalUrl: 'https://github.com/ajay3554/Ecommerce-Sales-Analytics',
     highlights: [
       'Tracks $214.54M total sales and $27M gross profit across 4K orders',
       'Advanced dynamic DAX measures for Year-Over-Year growth & profit margins (12.44%)',
