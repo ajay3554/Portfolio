@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { downloadResumePdf } from './utils/generateResumePdf';
 import salesDashboardImage from './assets/images/sales-dashboard.png';
+import zeptoSalesDashboardImage from './assets/images/zepto-sales-dashboard.png';
 
 // Project interfaces
 interface Project {
@@ -114,42 +115,44 @@ const PROJECTS_DATA: Project[] = [
     }
   },
   {
-    id: 'pipeline-stream',
-    title: 'More Projects Coming Soon',
-    badge: 'Pipeline Architecture',
-    badgeIcon: 'fa-gears',
-    badgeColor: 'border-amber-500/30 text-amber-300',
-    isCustomVisual: true,
-    tags: ['Python', 'Apache Kafka', 'Scikit-Learn', 'Snowflake', 'Docker'],
-    description: 'Currently building end-to-end data pipelines, real-time analytics streaming tools, and machine learning models. Stay tuned for upcoming case studies and open-source contributions.',
-    hasGithub: false,
+    id: 'zepto-sales-analytics',
+    title: 'Zepto Sales & Business Analytics Dashboard',
+    badge: 'Power BI Dashboard',
+    badgeIcon: 'fa-chart-line',
+    badgeColor: 'border-violet-400/30 text-violet-300',
+    image: zeptoSalesDashboardImage,
+    tags: ['Power BI', 'DAX', 'Power Query', 'Data Modeling', 'Interactive Filters'],
+    description: 'Built an interactive Power BI dashboard to analyze Zepto sales performance, including sales trends, category-wise sales, top products, city-wise sales, and order status. Used DAX, Power Query, data modeling, and interactive filters to create a clear and business-focused analytics dashboard.',
+    hasGithub: true,
+    githubUrl: 'https://github.com/ajay3554/Zepto-Sales-Business-Analytics-Dashboard',
     showViewButton: true,
-    primaryActionText: 'EXPLORE ROADMAP',
+    primaryActionText: 'VIEW',
+    externalUrl: 'https://github.com/ajay3554/Zepto-Sales-Business-Analytics-Dashboard',
     highlights: [
-      'Real-time streaming ingestion pipeline designed with Apache Kafka and Python',
-      'Automated feature engineering and model serving with Scikit-Learn',
-      'Cloud warehouse integration targeting Snowflake and BigQuery',
-      'Containerized microservices orchestration via Docker'
+      'Analyzes ₹20,13,018 in total sales and ₹4,03,279 in total profit',
+      'Tracks monthly sales trends, total orders, quantity, and profit margin',
+      'Breaks down sales by category, city, and top-performing products',
+      'Shows delivered, cancelled, and returned order status'
     ],
     metrics: [
-      { label: 'Target Latency', value: '< 12ms', change: 'Real-time' },
-      { label: 'Target Throughput', value: '140k/s', change: 'Streaming' },
-      { label: 'Data Accuracy', value: '99.2%', change: 'Validated' },
-      { label: 'Release Stage', value: 'v0.9 Beta', change: 'In Progress' }
+      { label: 'Total Sales', value: '₹20.13L' },
+      { label: 'Total Orders', value: '10K' },
+      { label: 'Total Profit', value: '₹4.03L' },
+      { label: 'Profit Margin', value: '20.03%' }
     ],
     details: {
-      overview: 'An ambitious ongoing initiative focused on modern enterprise data engineering. Building reliable distributed event streaming, continuous ELT transformations, and predictive analytical endpoints.',
+      overview: 'An interactive Power BI dashboard for exploring Zepto sales performance across time, product categories, cities, and order statuses.',
       keyFeatures: [
-        'Event-driven streaming ingest from multiple transactional webhooks',
-        'Automated data quality assertions and anomaly detection checks',
-        'Incremental loading models designed for minimal warehouse compute credits',
-        'Production REST scoring microservice containerized with Docker'
+        'Monthly sales and profit trend analysis',
+        'Category-wise sales and top-five product comparisons',
+        'City-level sales breakdown and order status distribution',
+        'Interactive filters for year, month, category, sub-category, and city'
       ],
       technicalHighlights: [
-        'Kafka partition key strategies for out-of-order event mitigation',
-        'Schema registry enforcement with Apache Avro serialization',
-        'Predictive classification pipeline with Scikit-Learn pipelines',
-        'CI/CD deployment automated with GitHub Actions'
+        'DAX measures for sales, profit, quantity, and margin metrics',
+        'Power Query transformations for dashboard-ready data',
+        'Data modeling for connected report visualizations',
+        'Interactive Power BI slicers for focused analysis'
       ]
     }
   }
@@ -1130,7 +1133,7 @@ export default function App() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div className="glass-card-specular group bg-[#0B192E]/60 backdrop-blur-md p-4 rounded-2xl border border-sky-500/20 text-center flex flex-col items-center justify-center">
                   <i className="fa-regular fa-folder-open text-sky-400 text-xl mb-1" />
-                  <span className="text-3xl font-black text-white">2</span>
+                  <span className="text-3xl font-black text-white">3</span>
                   <span className="text-xs text-sky-200/90 font-bold uppercase mt-1">Projects</span>
                 </div>
 
