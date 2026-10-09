@@ -720,7 +720,7 @@ export default function App() {
                 <span className="text-sky-300 font-medium">Data + AI Portfolio</span>
                 <span className="text-slate-600">|</span>
                 <span className="text-slate-300 text-[11px] uppercase tracking-wider">
-                  Data Analyst Intern
+                  Data Analyst • BI • SQL
                 </span>
               </div>
 
@@ -759,7 +759,7 @@ export default function App() {
 
               {/* Bio Paragraph */}
               <p className="text-slate-400 leading-relaxed text-base md:text-lg max-w-xl">
-                I’m a Computer Science and Engineering student and Data Analyst Intern based in Chennai. I have hands-on experience in Python, Power BI, SQL and Excel. I love working with data, creating visualizations and building dashboards that help in better decision making.
+                I’m a Computer Science and Engineering student based in Chennai, with a strong focus on data analysis, business intelligence, and dashboard storytelling. I work with Python, Power BI, SQL, and Excel to transform raw data into actionable insights and measurable business decisions.
               </p>
 
               {/* Hero Action Buttons */}
