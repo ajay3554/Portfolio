@@ -720,7 +720,7 @@ export default function App() {
                 
                 <span className="text-slate-600">|</span>
                 <span className="text-slate-300 text-[11px] uppercase tracking-wider">
-                  Data Analyst • BI • SQL
+                  Data Analyst
                 </span>
               </div>
 
