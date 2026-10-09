@@ -717,10 +717,8 @@ export default function App() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B192E]/80 border border-sky-400/30 text-xs font-semibold tracking-wide shadow-[0_0_15px_rgba(56,189,248,0.2)] backdrop-blur-md">
                 <span className="text-sky-400 text-sm animate-pulse">✦</span>
-                <span className="text-sky-300 font-medium">Data + AI Portfolio</span>
-                <span className="text-slate-600">|</span>
                 <span className="text-slate-300 text-[11px] uppercase tracking-wider">
-                  Data Analyst Intern
+                  Aspiring Data Analyst
                 </span>
               </div>
 
@@ -759,7 +757,7 @@ export default function App() {
 
               {/* Bio Paragraph */}
               <p className="text-slate-400 leading-relaxed text-base md:text-lg max-w-xl">
-                I’m a Computer Science and Engineering student and Data Analyst Intern based in Chennai. I have hands-on experience in Python, Power BI, SQL and Excel. I love working with data, creating visualizations and building dashboards that help in better decision making.
+                I am a Computer Science and Engineering student and aspiring Data Analyst based in Chennai. I have completed a Data Analyst Internship at Techswot IT Solutions, gaining practical exposure to data analysis and reporting workflows. I use Python, SQL, Power BI, and Excel to clean data, explore trends, create visualizations, and develop dashboards that support data-driven decisions.
               </p>
 
               {/* Hero Action Buttons */}
@@ -1063,6 +1061,7 @@ export default function App() {
                 </div>
                 <span className="text-xs font-bold text-white">Data Analyst Intern</span>
                 <span className="text-[11px] text-sky-400 font-semibold mt-0.5">@ Techswot IT Solutions</span>
+                <span className="text-[10px] text-slate-400 mt-1">Internship Completed (September2026-October2026)</span>
               </div>
             </div>
           </div>
@@ -1080,7 +1079,7 @@ export default function App() {
                 </span>
               </h2>
               <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                I am a Computer Science and Engineering student and Data Analyst Intern based in Chennai. I have hands-on experience in Python, Power BI, SQL and Excel. I enjoy working with data, creating visualizations and building dashboards that provide useful insights.
+                I am a Computer Science and Engineering student and aspiring Data Analyst based in Chennai. I have completed a Data Analyst Internship at Techswot IT Solutions, where I gained practical exposure to data analysis and reporting workflows. I work with Python, SQL, Power BI, and Excel to clean data, explore trends, create visualizations, and develop dashboards that support data-driven decision-making.
               </p>
 
               <div className="space-y-3.5 pt-2 text-sm text-slate-300">
@@ -1197,14 +1196,14 @@ export default function App() {
                     </p>
                   </div>
                   <span className="text-xs font-semibold px-3 py-1 rounded-full bg-sky-500/10 text-sky-300 border border-sky-400/30">
-                    Sep 2026 – Present
+                    Internship Completed (September2026-October2026)
                   </span>
                 </div>
 
                 <ul className="space-y-2.5 text-xs md:text-sm text-slate-400 mt-4 list-disc pl-5 leading-relaxed">
-                  <li>Supporting data analysis activities in a professional work environment.</li>
-                  <li>Working with data-related tasks using analytical and reporting concepts.</li>
-                  <li>Applying Python, SQL, Power BI and Excel skills to strengthen practical data analysis experience.</li>
+                  <li>Gained practical exposure to data analysis and reporting workflows in a professional environment.</li>
+                  <li>Applied Python, SQL, Power BI, and Excel to strengthen data analysis and visualization skills.</li>
+                  <li>Developed practical knowledge of data cleaning, exploratory data analysis (EDA), and reporting.</li>
                 </ul>
               </div>
             </div>
@@ -1219,10 +1218,10 @@ export default function App() {
                     </span>
                     <div>
                       <h3 className="text-lg md:text-xl font-black text-white">Experience Highlights</h3>
-                      <p className="text-xs text-slate-400 mt-1">What I am building through this role</p>
+                      <p className="text-xs text-slate-400 mt-1">What I gained through this internship</p>
                     </div>
                   </div>
-                  <span className="experience-current-badge">Current Role</span>
+                  <span className="experience-completed-badge">Completed</span>
                 </div>
 
                 <div className="experience-highlight-grid">
@@ -1245,16 +1244,16 @@ export default function App() {
                   <div className="experience-highlight-card experience-highlight-violet">
                     <span className="experience-highlight-card-icon"><i className="fa-solid fa-bullseye" /></span>
                     <div>
-                      <h4>Professional Growth</h4>
-                      <p>Hands-on Projects · Real-world Data</p>
+                      <h4>Practical Learning</h4>
+                      <p>Analytical Thinking · Problem-Solving</p>
                     </div>
                   </div>
 
                   <div className="experience-highlight-card experience-highlight-amber">
                     <span className="experience-highlight-card-icon"><i className="fa-solid fa-bolt" /></span>
                     <div>
-                      <h4>Domain Exposure</h4>
-                      <p>Business Data · Analytics · Insights</p>
+                      <h4>Career Growth</h4>
+                      <p>Hands-on Learning · Business Insights</p>
                     </div>
                   </div>
                 </div>
@@ -1743,7 +1742,7 @@ export default function App() {
                 </span>
               </h3>
               <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-                I'm currently seeking new opportunities as a Data Analyst or Data Analyst Intern. Feel free to reach out for collaborations, project discussions, or inquiries.
+                I'm currently seeking new opportunities as a Data Analyst. Feel free to reach out for collaborations, project discussions, or inquiries.
               </p>
               <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
                 <button
@@ -2060,7 +2059,7 @@ export default function App() {
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <h3 className="text-3xl font-black text-white">AJAYRAJ B</h3>
-                  <p className="text-sky-400 font-semibold text-base mt-1">Computer Science & Engineering Student | Data Analyst Intern</p>
+                  <p className="text-sky-400 font-semibold text-base mt-1">Computer Science & Engineering Student | Aspiring Data Analyst</p>
                   <div className="flex flex-wrap items-center gap-3.5 text-xs text-slate-400 mt-2">
                     <span><i className="fa-solid fa-location-dot text-sky-400 mr-1" /> Chennai, Tamil Nadu, India</span>
                     <span><i className="fa-solid fa-phone text-sky-400 mr-1" /> +91 6382932901</span>
@@ -2103,7 +2102,7 @@ export default function App() {
                   Professional Profile
                 </h4>
                 <p className="text-slate-300 leading-relaxed text-xs md:text-sm">
-                  Computer Science and Engineering student and Data Analyst Intern with hands-on knowledge of Python, Power BI, SQL, and Excel. Interested in data cleaning, analysis, visualization, and dashboard reporting. Seeking an entry-level Data Analyst opportunity to apply analytical and problem-solving skills.
+                  I am a Computer Science and Engineering student and aspiring Data Analyst based in Chennai. I have completed a Data Analyst Internship at Techswot IT Solutions, where I gained practical exposure to data analysis and reporting workflows. I work with Python, SQL, Power BI, and Excel to clean data, explore trends, create visualizations, and develop dashboards that support data-driven decision-making.
                 </p>
               </div>
 
@@ -2164,13 +2163,13 @@ export default function App() {
                       <p className="text-xs text-sky-400 font-semibold">Techswot IT Solutions | Chennai</p>
                     </div>
                     <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-300 border border-sky-400/20">
-                      Sep 2026 – Present
+                    Internship Completed (September2026-October2026)
                     </span>
                   </div>
                   <ul className="list-disc pl-5 text-xs text-slate-300 space-y-1">
-                    <li>Supporting data analysis activities in an enterprise tech environment.</li>
-                    <li>Executing ETL workflows and generating weekly diagnostic performance reports.</li>
-                    <li>Utilizing Python, SQL, Power BI, and Excel to solve reporting requests and validate data integrity.</li>
+                    <li>Gained practical exposure to data analysis and reporting workflows in a professional environment.</li>
+                    <li>Applied Python, SQL, Power BI, and Excel to strengthen data analysis and visualization skills.</li>
+                    <li>Developed practical knowledge of data cleaning, exploratory data analysis (EDA), and reporting.</li>
                   </ul>
                 </div>
               </div>

@@ -894,7 +894,7 @@ main section[id] {
   box-shadow: 0 0 20px rgba(56,189,248,.10);
 }
 
-.experience-current-badge {
+.experience-completed-badge {
   flex: 0 0 auto;
   padding: 6px 11px;
   border-radius: 999px;
@@ -994,7 +994,6 @@ main section[id] {
 @media (max-width: 640px) {
   .experience-highlights { padding: 18px; }
   .experience-highlight-grid { grid-template-columns: 1fr; }
-  .experience-current-badge { display: none; }
 }
 
 

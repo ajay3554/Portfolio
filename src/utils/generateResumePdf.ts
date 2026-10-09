@@ -57,7 +57,7 @@ export function downloadResumePdf(): void {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10.5);
   doc.setTextColor(headerBlue);
-  doc.text('Computer Science & Engineering Student | Data Analyst Intern', pageWidth / 2, y, { align: 'center' });
+  doc.text('Computer Science & Engineering Student | Aspiring Data Analyst', pageWidth / 2, y, { align: 'center' });
   y += 14;
 
   doc.setFont('helvetica', 'normal');
@@ -71,7 +71,7 @@ export function downloadResumePdf(): void {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
   doc.setTextColor(textDark);
-  const profileText = 'Computer Science and Engineering student and Data Analyst Intern with hands-on knowledge of Python, Power BI, SQL, and Excel. Interested in data cleaning, analysis, visualization, and dashboard reporting. Seeking an entry-level Data Analyst opportunity to apply analytical and problem-solving skills.';
+  const profileText = 'I am a Computer Science and Engineering student and aspiring Data Analyst based in Chennai. I have completed a Data Analyst Internship at Techswot IT Solutions, where I gained practical exposure to data analysis and reporting workflows. I work with Python, SQL, Power BI, and Excel to clean data, explore trends, create visualizations, and develop dashboards that support data-driven decision-making.';
   const profileLines = doc.splitTextToSize(profileText, contentWidth);
   doc.text(profileLines, margin, y);
   y += profileLines.length * 11 + 2;
@@ -170,7 +170,7 @@ export function downloadResumePdf(): void {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
   doc.setTextColor(textMuted);
-  doc.text('September 2026 – Present | Chennai', pageWidth - margin, y, { align: 'right' });
+  doc.text('Internship Completed (September2026-October2026) | Chennai', pageWidth - margin, y, { align: 'right' });
   y += 11;
 
   doc.setFont('helvetica', 'bold');
@@ -179,9 +179,9 @@ export function downloadResumePdf(): void {
   doc.text('Techswot IT Solutions', margin, y);
   y += 11;
 
-  addBullet('Supporting data analysis activities in a professional work environment.');
-  addBullet('Working with data-related tasks using analytical and reporting concepts.');
-  addBullet('Applying Python, SQL, Power BI, and Excel skills to strengthen practical data analysis experience.');
+  addBullet('Gained practical exposure to data analysis and reporting workflows in a professional environment.');
+  addBullet('Applied Python, SQL, Power BI, and Excel to strengthen data analysis and visualization skills.');
+  addBullet('Developed practical knowledge of data cleaning, exploratory data analysis (EDA), and reporting.');
 
   // --- CERTIFICATIONS ---
   addSectionHeader('CERTIFICATIONS');
