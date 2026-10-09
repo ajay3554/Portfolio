@@ -717,7 +717,7 @@ export default function App() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B192E]/80 border border-sky-400/30 text-xs font-semibold tracking-wide shadow-[0_0_15px_rgba(56,189,248,0.2)] backdrop-blur-md">
                 <span className="text-sky-400 text-sm animate-pulse">✦</span>
-                <span className="text-sky-300 font-medium">Data + AI Portfolio</span>
+                
                 <span className="text-slate-600">|</span>
                 <span className="text-slate-300 text-[11px] uppercase tracking-wider">
                   Data Analyst • BI • SQL
