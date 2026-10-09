@@ -737,8 +737,17 @@ export default function App() {
                   </span>
                 </h1>
 
-                {/* Subtitle */}
+                {/* Subtitle with blinking bar */}
                 <div className="flex flex-col items-start gap-1 pt-2">
+                  <span
+                    ref={roleTextRef}
+                    className="hero-role-typewriter text-xl md:text-2xl font-bold text-sky-400 tracking-normal drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]"
+                    aria-label="Data Analyst"
+                  >
+                    {typedRoleText}
+                  </span>
+                  <span className="hidden" />
+                  <span className="hidden">|</span>
                   <span className="text-base md:text-xl font-medium text-slate-300">
                     Turning Data into{' '}
                     <span className="text-white font-semibold underline decoration-sky-400/60 decoration-2 underline-offset-4">
