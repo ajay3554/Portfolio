@@ -1197,7 +1197,7 @@ export default function App() {
                     </p>
                   </div>
                   <span className="text-xs font-semibold px-3 py-1 rounded-full bg-sky-500/10 text-sky-300 border border-sky-400/30">
-                    Internship Completed · 2026
+                    Sep 2026 – Oct 2026 · Internship Completed
                   </span>
                 </div>
 
@@ -2164,7 +2164,7 @@ export default function App() {
                       <p className="text-xs text-sky-400 font-semibold">Techswot IT Solutions | Chennai</p>
                     </div>
                     <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-300 border border-sky-400/20">
-                      Internship Completed · 2026
+                      Sep 2026 – Oct 2026 · Internship Completed
                     </span>
                   </div>
                   <ul className="list-disc pl-5 text-xs text-slate-300 space-y-1">
