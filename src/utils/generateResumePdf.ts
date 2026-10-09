@@ -170,7 +170,7 @@ export function downloadResumePdf(): void {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
   doc.setTextColor(textMuted);
-  doc.text('Internship Completed · 2026 | Chennai', pageWidth - margin, y, { align: 'right' });
+  doc.text('Sep 2026 – Oct 2026 | Chennai', pageWidth - margin, y, { align: 'right' });
   y += 11;
 
   doc.setFont('helvetica', 'bold');
