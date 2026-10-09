@@ -1197,14 +1197,14 @@ export default function App() {
                     </p>
                   </div>
                   <span className="text-xs font-semibold px-3 py-1 rounded-full bg-sky-500/10 text-sky-300 border border-sky-400/30">
-                    Sep 2026 – Present
+                    Internship Completed · 2026
                   </span>
                 </div>
 
                 <ul className="space-y-2.5 text-xs md:text-sm text-slate-400 mt-4 list-disc pl-5 leading-relaxed">
-                  <li>Supporting data analysis activities in a professional work environment.</li>
-                  <li>Working with data-related tasks using analytical and reporting concepts.</li>
-                  <li>Applying Python, SQL, Power BI and Excel skills to strengthen practical data analysis experience.</li>
+                  <li>Contributed to data analysis activities in a professional work environment.</li>
+                  <li>Worked on data-related tasks using analytical and reporting concepts.</li>
+                  <li>Applied Python, SQL, Power BI and Excel skills to build practical data analysis experience.</li>
                 </ul>
               </div>
             </div>
@@ -1219,10 +1219,10 @@ export default function App() {
                     </span>
                     <div>
                       <h3 className="text-lg md:text-xl font-black text-white">Experience Highlights</h3>
-                      <p className="text-xs text-slate-400 mt-1">What I am building through this role</p>
+                      <p className="text-xs text-slate-400 mt-1">Skills and experience gained during the internship</p>
                     </div>
                   </div>
-                  <span className="experience-current-badge">Current Role</span>
+                  <span className="experience-current-badge">Internship Completed</span>
                 </div>
 
                 <div className="experience-highlight-grid">
@@ -2164,13 +2164,13 @@ export default function App() {
                       <p className="text-xs text-sky-400 font-semibold">Techswot IT Solutions | Chennai</p>
                     </div>
                     <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-300 border border-sky-400/20">
-                      Sep 2026 – Present
+                      Internship Completed · 2026
                     </span>
                   </div>
                   <ul className="list-disc pl-5 text-xs text-slate-300 space-y-1">
-                    <li>Supporting data analysis activities in an enterprise tech environment.</li>
-                    <li>Executing ETL workflows and generating weekly diagnostic performance reports.</li>
-                    <li>Utilizing Python, SQL, Power BI, and Excel to solve reporting requests and validate data integrity.</li>
+                    <li>Contributed to data analysis activities in a professional work environment.</li>
+                    <li>Worked on data-related tasks using analytical and reporting concepts.</li>
+                    <li>Applied Python, SQL, Power BI, and Excel skills to build practical data analysis experience.</li>
                   </ul>
                 </div>
               </div>
